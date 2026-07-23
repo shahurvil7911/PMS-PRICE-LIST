@@ -1,0 +1,100 @@
+{
+  "project_context": {
+    "name": "Pankaj Mill Stores Price Lookup",
+    "description": "Internal business app for instant price lookup and editing.",
+    "target_audience": "Warehouse workers and admins",
+    "tone": "Industrial, practical, distraction-free, robust, warm earthy."
+  },
+  "typography": {
+    "headings": {
+      "font": "Chivo, sans-serif",
+      "style": "font-black tracking-tight",
+      "import_url": "@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&display=swap');"
+    },
+    "body": {
+      "font": "IBM Plex Sans, sans-serif",
+      "style": "tracking-normal",
+      "import_url": "@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');"
+    }
+  },
+  "colors": {
+    "strategy": "Archetype 1 (Organic/Earthy) mixed with Industrial Machinery. Rust Orange primary with Warm Stone background.",
+    "variables_to_add_in_index_css": {
+      "light": {
+        "--background": "60 15% 95%",
+        "--foreground": "0 0% 10%",
+        "--primary": "21 90% 48%",
+        "--primary-foreground": "0 0% 100%",
+        "--muted": "60 10% 90%",
+        "--muted-foreground": "0 0% 40%",
+        "--border": "60 10% 85%",
+        "--card": "60 15% 95%",
+        "--card-foreground": "0 0% 10%"
+      },
+      "dark": {
+        "--background": "60 5% 10%",
+        "--foreground": "60 15% 95%",
+        "--primary": "21 90% 55%",
+        "--primary-foreground": "0 0% 10%",
+        "--muted": "60 5% 15%",
+        "--muted-foreground": "60 5% 65%",
+        "--border": "60 5% 20%",
+        "--card": "60 5% 10%",
+        "--card-foreground": "60 15% 95%"
+      }
+    }
+  },
+  "visual_enhancers": {
+    "watermark": "Faint large centered text watermark across the background. Content: 'PANKAJ MILL STORES'. Classes: `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(4rem,12vw,12rem)] font-black text-foreground/5 pointer-events-none select-none whitespace-nowrap z-0`",
+    "borders": "Sharp, industrial edges. Modify tailwind.config.js variables to have radius 0 or 2px max.",
+    "shadows": "Minimal. Rely on 1px borders and slight background color shifts instead of soft shadows to maintain the raw industrial feel."
+  },
+  "layouts": {
+    "global": "Distraction-free. Everything sits on top of the watermark (ensure relative z-10 for content containers).",
+    "hero_search": "Massive search bar. Container: `w-full max-w-5xl mx-auto mt-20 md:mt-32 relative z-10`. Input should be `text-2xl md:text-5xl p-6 md:p-8 font-black border-b-4 border-primary bg-background focus:outline-none focus:ring-0 w-full`. No magnifying glass icon, just raw input placeholder 'Search product, brand, size...'",
+    "filters": "Underneath search bar. Small pill chips. `flex gap-3 flex-wrap mt-6`. Pills: `px-6 py-2 text-sm font-bold uppercase tracking-widest border border-border hover:bg-muted cursor-pointer transition-colors`.",
+    "product_list": "Vertical list of flat rectangular rows (not traditional cards). `flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-border hover:bg-muted/30 transition-colors gap-6`.",
+    "price_display": "Two distinct blocks side by side on the right. Wholesale on left, Retail on right. Labels: `text-xs uppercase tracking-widest text-muted-foreground block mb-1`. Prices: `text-3xl md:text-4xl font-black text-foreground font-heading`. Include ₹ symbol.",
+    "admin_csv_upload": "Drag and drop zone `border-2 border-dashed border-primary bg-primary/5 p-12 text-center cursor-pointer`. Two explicit radio buttons or large toggle buttons below it: 'Replace All' vs 'Update Existing & Add New'."
+  },
+  "components": {
+    "inline_price_edit": "For admins: when hovering over a price, show a subtle dashed underline and a faint pen icon next to it. On click, swap the text block with a naked input `<input type='number' autoFocus className='w-32 bg-transparent border-b-2 border-primary text-3xl font-black focus:outline-none text-foreground' />`. Save on blur or Enter key press.",
+    "auth_screen": "Ultra minimal. Centered form. 'PANKAJ MILL STORES' as a massive H1. Username and Password inputs with industrial styling (thick bottom borders, no radius). Solid primary button `bg-primary text-primary-foreground font-black uppercase tracking-widest px-8 py-4 w-full mt-4`.",
+    "navigation": "Simple top bar. Left: 'Pankaj Mill Stores' (Text only, font-black). Right: 'Logout' (and 'Admin Panel' if admin). Background must be solid or heavy glassmorphism to sit clearly over the watermark."
+  },
+  "motion": {
+    "interactions": "Hover states on rows: slight background change (`hover:bg-muted/30`). Fast, snappy transitions. `transition-colors duration-150`.",
+    "loading": "Skeleton loaders matching the row layout. No spinners."
+  },
+  "accessibility": {
+    "focus": "High contrast focus rings for keyboard navigation. `focus:ring-2 focus:ring-primary focus:outline-none`.",
+    "contrast": "Ensure prices have minimum 4.5:1 contrast."
+  },
+  "media": {
+    "image_urls": [],
+    "instructions": "No images. The prompt explicitly says 'Text-only Pankaj Mill Stores branding (no logo image)'. Do not use placeholder images."
+  },
+  "instructions_to_main_agent": [
+    "1. Inject the specified Google Fonts (Chivo for headings, IBM Plex Sans for body) into index.css and map them in tailwind.config.js.",
+    "2. Implement the color palette exactly as specified using HSL variables in index.css.",
+    "3. Set `border-radius` variables to `0` in tailwind config for a sharp industrial look.",
+    "4. The background MUST have the faint watermark: 'PANKAJ MILL STORES'. Put it fixed, centered, opacity 5%, `pointer-events-none`.",
+    "5. The search bar must be huge and instantly focused on page load (autofocus).",
+    "6. Build the inline click-to-edit feature for prices without using forms or modals. It should feel instant and inline.",
+    "7. Implement Simple Auth screen matching the industrial aesthetic.",
+    "8. Implement Admin CSV upload interface with the two specific logic buttons ('Replace all', 'Update existing + add new').",
+    "9. Use `lucide-react` for simple icons (edit pen, upload, check) but sparingly.",
+    "10. Ensure prices format with ₹ on the left (e.g. ₹ 1,200).",
+    "11. Every interactive element MUST have a `data-testid` attribute (e.g., `data-testid='search-input'`, `data-testid='price-inline-edit'`)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Avoid generic, 'on distribution' outputs (AI slop). Make the frontend creative and distinctive.",
+    "Don't make generic centered layouts or simplistic gradients. Use the provided industrial brutalist guidelines.",
+    "Use 2-3x more spacing than feels comfortable. E.g. use p-8 or py-12 for rows.",
+    "Never apply universal transition (e.g., `transition: all`). Always add transitions for specific properties.",
+    "You MUST NOT center align the app container in css.",
+    "No emojis for icons. Use lucide-react.",
+    "Use `sonner` for toast notifications.",
+    "All interactive and key informational elements MUST include a `data-testid` attribute."
+  ]
+}
