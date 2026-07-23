@@ -4,8 +4,11 @@
       "root": "frontend",
       "framework": "create-react-app"
     },
-    "backend": {
-      "root": "backend"
+   "backend": {
+  "root": "backend",
+  "runtime": "python",
+  "entrypoint": "server.py"
+}
     }
   },
   "rewrites": [
