@@ -1,56 +1,54 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import Login from "@/pages/Login";
+import Search from "@/pages/Search";
+import Admin from "@/pages/Admin";
+import Layout from "@/components/Layout";
+import { Toaster } from "@/components/ui/sonner";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
+const RequireAuth = ({ role }) => {
+  const { user } = useAuth();
+  if (user === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="pms-label text-muted-foreground">Loading…</div>
+      </div>
+    );
+  }
+  if (user === false) return <Navigate to="/login" replace />;
+  if (role === "admin" && user.role !== "admin") return <Navigate to="/" replace />;
+  return <Outlet />;
 };
 
-function App() {
+function AppShell() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
+      <div className="pms-noise" aria-hidden="true" />
+      <div className="pms-watermark" aria-hidden="true">PANKAJ MILL STORES</div>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<RequireAuth />}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Search />} />
+            <Route element={<RequireAuth role="admin" />}>
+              <Route path="/admin/*" element={<Admin />} />
+            </Route>
           </Route>
-        </Routes>
-      </BrowserRouter>
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <Toaster position="bottom-right" />
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
+    </BrowserRouter>
+  );
+}
