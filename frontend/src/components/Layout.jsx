@@ -25,7 +25,6 @@ export default function Layout() {
             </div>
             <div className="leading-none">
               <div className="font-heading font-black text-base tracking-tight">PANKAJ MILL STORES</div>
-              <div className="pms-label text-muted-foreground mt-1 hidden sm:block">Price Lookup</div>
             </div>
           </Link>
 

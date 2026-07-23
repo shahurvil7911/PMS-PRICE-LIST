@@ -30,7 +30,7 @@ export default function Login() {
           <div className="w-8 h-8 border-2 border-primary bg-primary/10 flex items-center justify-center">
             <span className="font-heading font-black text-primary text-sm">P</span>
           </div>
-          <div className="pms-label text-muted-foreground">Internal · Price Lookup</div>
+          <div className="pms-label text-muted-foreground">Internal</div>
         </div>
       </div>
 
